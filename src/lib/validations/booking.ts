@@ -2,11 +2,22 @@ import { z } from 'zod';
 
 /**
  * Schema de validação Zod para os dados do agendamento.
+ * Valida horário de início aceitando formatos ISO (UTC), com offset (ex: -03:00) ou string parseável por Date.
  */
 export const bookingSchema = z.object({
   barberId: z.string().min(1, 'Selecione um profissional da equipe.'),
   serviceIds: z.array(z.string()).min(1, 'Selecione pelo menos um serviço.'),
-  startAt: z.string().datetime({ message: 'Horário de início inválido.' }),
+  startAt: z
+    .string()
+    .min(1, 'Horário de início é obrigatório.')
+    .refine(
+      (val) => {
+        if (!val || typeof val !== 'string') return false;
+        const d = new Date(val);
+        return !isNaN(d.getTime());
+      },
+      { message: 'Horário de início inválido.' }
+    ),
   clientName: z
     .string()
     .trim()

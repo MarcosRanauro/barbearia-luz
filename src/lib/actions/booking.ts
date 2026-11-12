@@ -12,6 +12,10 @@ export async function createAppointment(rawInput: unknown): Promise<BookingRespo
   const parseResult = bookingSchema.safeParse(rawInput);
 
   if (!parseResult.success) {
+    console.error('[createAppointment] Falha na validação Zod:', {
+      rawInput,
+      errors: parseResult.error.format(),
+    });
     const firstError = parseResult.error.issues[0]?.message ?? 'Dados de agendamento inválidos.';
     return {
       success: false,
@@ -21,7 +25,20 @@ export async function createAppointment(rawInput: unknown): Promise<BookingRespo
 
   const { barberId, serviceIds, startAt, clientName, clientPhone, notes } = parseResult.data;
 
-  // 1. Identificar o barbeiro (aceita slug amigável ou UUID)
+  // 1. Instanciação e validação robusta da data de início
+  const startDate = new Date(startAt);
+  if (isNaN(startDate.getTime())) {
+    console.error('[createAppointment] Data inválida ao instanciar new Date(startAt):', {
+      startAt,
+      type: typeof startAt,
+    });
+    return {
+      success: false,
+      error: 'Horário de início inválido.',
+    };
+  }
+
+  // 2. Identificar o barbeiro (aceita slug amigável ou UUID)
   const barber = findBarber(barberId);
   if (!barber || !barber.is_active) {
     return {
@@ -32,7 +49,7 @@ export async function createAppointment(rawInput: unknown): Promise<BookingRespo
 
   const targetBarberId = barber.id;
 
-  // 2. Localizar serviços e somar duração e preço
+  // 3. Localizar serviços e somar duração e preço
   const selectedServices = SERVICES_CATALOG.filter((s) => serviceIds.includes(s.id));
   if (selectedServices.length === 0) {
     return {
@@ -44,15 +61,15 @@ export async function createAppointment(rawInput: unknown): Promise<BookingRespo
   const totalDurationMinutes = selectedServices.reduce((acc, s) => acc + s.duration_minutes, 0);
   const totalPriceCents = selectedServices.reduce((acc, s) => acc + s.price_cents, 0);
 
-  // 3. Calcular horário final (endAt) somando os minutos de todos os serviços
-  const startDate = new Date(startAt);
+  // 4. Calcular horário final somando duração dos serviços e converter para ISO universal
   const endDate = new Date(startDate.getTime() + totalDurationMinutes * 60 * 1000);
-  const endAt = endDate.toISOString();
+  const startAtIso = startDate.toISOString();
+  const endAtIso = endDate.toISOString();
 
   try {
     const supabaseAdmin = createAdminClient();
 
-    // 4. Upsert do cliente pelo telefone único (normalizado apenas dígitos)
+    // 5. Upsert do cliente pelo telefone único (normalizado apenas dígitos)
     const { data: existingClient, error: clientSearchError } = await supabaseAdmin
       .from('clients')
       .select('id, name')
@@ -96,14 +113,14 @@ export async function createAppointment(rawInput: unknown): Promise<BookingRespo
       clientId = newClient.id;
     }
 
-    // 5. Inserir agendamento com validação da constraint temporal btree_gist
+    // 6. Inserir agendamento com validação da constraint temporal btree_gist
     const { data: appointment, error: appointmentError } = await supabaseAdmin
       .from('appointments')
       .insert({
         barber_id: targetBarberId,
         client_id: clientId,
-        start_at: startAt,
-        end_at: endAt,
+        start_at: startAtIso,
+        end_at: endAtIso,
         status: 'confirmed',
         total_price_cents: totalPriceCents,
         notes: notes ?? null,
@@ -127,14 +144,14 @@ export async function createAppointment(rawInput: unknown): Promise<BookingRespo
         };
       }
 
-      console.error('Erro ao criar agendamento:', appointmentError);
+      console.error('Erro ao criar agendamento no Supabase:', appointmentError);
       return {
         success: false,
         error: 'Não foi possível confirmar seu agendamento no momento. Tente novamente.',
       };
     }
 
-    // 6. Registrar serviços contratados em appointment_services
+    // 7. Registrar serviços contratados em appointment_services
     const appointmentServicesPayload = selectedServices.map((service) => ({
       appointment_id: appointment.id,
       service_id: service.id,
@@ -142,7 +159,7 @@ export async function createAppointment(rawInput: unknown): Promise<BookingRespo
       duration_minutes: service.duration_minutes,
     }));
 
-    // Tentar gravar em appointment_services se a tabela de serviços existir no banco
+    // Gravar itens do agendamento
     const { error: itemsError } = await supabaseAdmin
       .from('appointment_services')
       .insert(appointmentServicesPayload);
@@ -160,17 +177,20 @@ export async function createAppointment(rawInput: unknown): Promise<BookingRespo
         clientName,
         clientPhone,
         servicesNames: selectedServices.map((s) => s.name),
-        startAt,
-        endAt,
+        startAt: startAtIso,
+        endAt: endAtIso,
         totalPriceCents,
         totalDurationMinutes,
       },
     };
   } catch (err: unknown) {
     const error = err as Error;
-    console.error('Erro inesperado na Server Action createAppointment:', error);
+    console.error('Erro inesperado na Server Action createAppointment:', {
+      error: error?.message,
+      stack: error?.stack,
+      startAt,
+    });
 
-    // Fallback amigável caso haja erro de conectividade
     return {
       success: false,
       error: error?.message || 'Ocorreu um erro interno ao processar o agendamento.',
@@ -180,7 +200,7 @@ export async function createAppointment(rawInput: unknown): Promise<BookingRespo
 
 /**
  * Consulta slots disponíveis para um determinado barbeiro e data.
- * Tenta executar a RPC get_available_slots e provê cálculo seguro caso necessário.
+ * Tenta executar a RPC get_available_slots e provê cálculo seguro considerando o fuso do Brasil.
  */
 export async function fetchAvailableSlots(
   barberId: string,
@@ -208,26 +228,22 @@ export async function fetchAvailableSlots(
     // calculamos os slots no padrão comercial da casa (09h às 19h, Seg a Sáb)
   }
 
-  // Fallback: cálculo de grade padrão (Seg a Sáb, 09:00 às 19:00)
+  // Fallback: cálculo de grade padrão (Seg a Sáb, 09:00 às 19:00 no fuso de Brasília)
   return calculateDefaultBusinessSlots(targetBarberId, dateString, durationMinutes);
 }
 
 /**
  * Gera os slots comerciais da Barbearia Luz (09h às 19h, passos de 30min).
- * Consulta agendamentos existentes no banco para desabilitar slots ocupados.
+ * Utiliza o fuso horário oficial de Brasília (UTC-3) para evitar divergências de timezone.
  */
 async function calculateDefaultBusinessSlots(
   barberId: string,
   dateString: string,
   durationMinutes: number
 ): Promise<string[]> {
-  const [yearStr, monthStr, dayStr] = dateString.split('-');
-  const year = parseInt(yearStr, 10);
-  const month = parseInt(monthStr, 10) - 1;
-  const day = parseInt(dayStr, 10);
-
-  const selectedDate = new Date(year, month, day);
-  const dayOfWeek = selectedDate.getDay(); // 0 = Domingo
+  // Instanciar data no fuso de Brasília para conferir o dia da semana
+  const dateCheck = new Date(`${dateString}T12:00:00-03:00`);
+  const dayOfWeek = dateCheck.getDay(); // 0 = Domingo
 
   // Fechado aos domingos
   if (dayOfWeek === 0) {
@@ -235,8 +251,8 @@ async function calculateDefaultBusinessSlots(
   }
 
   // Buscar agendamentos confirmados do barbeiro nesta data
-  const startOfDay = new Date(year, month, day, 0, 0, 0).toISOString();
-  const endOfDay = new Date(year, month, day, 23, 59, 59).toISOString();
+  const startOfDay = new Date(`${dateString}T00:00:00-03:00`).toISOString();
+  const endOfDay = new Date(`${dateString}T23:59:59-03:00`).toISOString();
 
   let occupiedIntervals: { start: number; end: number }[] = [];
 
@@ -263,19 +279,24 @@ async function calculateDefaultBusinessSlots(
   const slots: string[] = [];
   const now = new Date();
 
-  // Das 09:00 às 19:00
+  // Das 09:00 às 19:00 (Horário de Brasília)
   const openingHour = 9;
   const closingHour = 19;
   const stepMinutes = 30;
 
   for (let hour = openingHour; hour < closingHour; hour++) {
     for (let minute = 0; minute < 60; minute += stepMinutes) {
-      const slotStart = new Date(year, month, day, hour, minute, 0, 0);
+      const hourPadded = String(hour).padStart(2, '0');
+      const minPadded = String(minute).padStart(2, '0');
+
+      // Slot explícito no fuso horário de Brasília (-03:00)
+      const slotIsoBR = `${dateString}T${hourPadded}:${minPadded}:00-03:00`;
+      const slotStart = new Date(slotIsoBR);
       const slotEnd = new Date(slotStart.getTime() + durationMinutes * 60 * 1000);
 
-      // Não pode ultrapassar o fechamento (19h)
-      const dayClosing = new Date(year, month, day, closingHour, 0, 0, 0);
-      if (slotEnd > dayClosing) {
+      // Não pode ultrapassar o horário de fechamento (19h em Brasília)
+      const dayClosing = new Date(`${dateString}T${closingHour}:00:00-03:00`);
+      if (slotEnd.getTime() > dayClosing.getTime()) {
         continue;
       }
 
