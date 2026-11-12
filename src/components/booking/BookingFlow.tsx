@@ -8,7 +8,8 @@ import { StepServices } from './StepServices';
 import { StepDateTime } from './StepDateTime';
 import { StepClientInfo } from './StepClientInfo';
 import { BookingConfirmation } from './BookingConfirmation';
-import { createAppointment, type BookingResponse } from '@/lib/actions/booking';
+import { createAppointment } from '@/lib/actions/booking';
+import type { BookingResponse } from '@/lib/validations/booking';
 import { findBarber } from '@/data/barbers';
 import { SERVICES_CATALOG } from '@/data/services';
 
