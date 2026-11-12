@@ -79,15 +79,21 @@ O projeto **Barbearia Luz** é uma plataforma web moderna e responsiva voltada p
     - Extensão `btree_gist` e constraint de exclusão temporal anti-double-booking.
     - RPC segura `get_available_slots` para cálculo de disponibilidade sem vazamento de dados.
     - Tipos TypeScript estritos em `src/types/database.types.ts`.
-  - [ ] **Etapa 4: Landing Page e Catálogo de Serviços** (branch `feat/landing-page`)
-  - [ ] **Etapa 5: Fluxo de Agendamento Público**
+  - [x] **Etapa 4: Landing Page e Catálogo de Serviços** (branch `feat/landing-page`)
+    - Criação de utilitários de formatação em `src/lib/utils/formatters.ts` (`formatPrice`, `formatDuration`, `formatPhone`).
+    - Catálogo tipado com os 17 serviços e preços reais da casa em `src/data/services.ts` (Cabelo, Barba, Combos, Química, Acabamento).
+    - Prova social real em `src/data/reviews.ts` com depoimentos do Google (Fabricio Lucas e Jonathan Matos) e menção a atletas do RJ.
+    - Componentes refinados no padrão Dark Luxury em `src/components/landing/`: `HeroSection`, `ServicesSection` (navegação por abas), `BarbersSection` (Renan, Mike, Davi e Leandro), `ReviewsSection`, `TattooAndAcademySection` (Tattoo (21) 99228-6447 + Academia de Barbeiros), `LocationSection` (Rua Barão de São Félix, Seg a Sáb 09h-19h), `Footer` e `Navbar`.
+    - Montagem da página principal responsiva em `src/app/(public)/page.tsx` com contatos e rota do Google Maps.
+    - Tipagem rigorosa com `database.types.ts`, zero uso de `any` e zero estilos inline.
+  - [ ] **Etapa 5: Fluxo de Agendamento em 4 Etapas** (branch `feat/booking-flow`)
   - [ ] **Etapa 6: Painel do Barbeiro e Administração**
 
 ---
 
 ## 5. Próximo Passo Imediato
 
-> **Etapa 4 - Landing Page e Catálogo de Serviços (branch feat/landing-page)**
-> - Desenvolver a Landing Page responsiva da Barbearia Luz.
-> - Exibir catálogo dinâmico de serviços com durações e preços a partir do Supabase.
-> - Botões de chamada para ação (CTA) para o fluxo de agendamento online.
+> **Etapa 5 - Fluxo de Agendamento em 4 Etapas (branch feat/booking-flow)**
+> - Construir fluxo de reserva multi-etapas interativo (Seleção de Serviços -> Barbeiro -> Data/Horário -> Dados do Cliente).
+> - Integrar RPC `get_available_slots` para consulta de horários disponíveis em tempo real.
+> - Transação atômica de criação de agendamento com tratamento do erro da constraint anti-double booking.

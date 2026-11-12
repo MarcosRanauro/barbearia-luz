@@ -7,6 +7,27 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 ---
 
+## [0.3.0] - 2026-11-12
+
+### Catálogo Enriquecido, Prova Social e Padrão Dark Luxury
+
+#### Adicionado
+- **Base de Dados de Serviços Reais (`src/data/services.ts`):**
+  - Catálogo estático com os 17 serviços e preços reais praticados na Barbearia Luz, divididos nas categorias Cabelo (Corte Tradicional, Pezinho, Lavagem Especial), Barba (Barba Simples, Barboterapia Completa com Ozônio, Pigmentação), Combos (Corte + Barba Tradicional, Corte + Barboterapia, Combo Master com Sobrancelha), Acabamento (Sobrancelha na Navalha, Limpeza de Pele Express) e Química (Platinado/Nevou, Luzes/Mechas, Progressiva, Hidratação, Matização, Relaxamento).
+- **Prova Social e Reputação (`src/data/reviews.ts`):**
+  - Depoimentos reais do Google Avaliações (Fabricio Lucas e Jonathan Matos) com classificação 5 estrelas.
+  - Registro da presença recorrente de atletas e personalidades da Baixada Fluminense e RJ.
+- **Componentes Refinados no Padrão Dark Luxury (`src/components/landing/`):**
+  - `HeroSection`: Badges reais ("⭐ 4.9 no Google (+160 avaliações)" e "❄️ Ambiente 100% climatizado"), CTA direto para `/agendar` e canal oficial no WhatsApp ((21) 98013-4488).
+  - `ServicesSection`: Navegação fluida por abas (Cabelo, Barba, Combos, Química, Acabamento) com cards detalhados, preços em centavos formatados e botão "Agendar este".
+  - `BarbersSection`: Destaque dos 4 profissionais da barbearia (Renan, Mike, Davi e Leandro).
+  - `ReviewsSection`: Seção dedicada com depoimentos verificados e menção a clientes VIPs.
+  - `TattooAndAcademySection`: Seção visual dupla cobrindo o Estúdio de Tattoo parceiro ((21) 99228-6447) e a Academia de Formação de Barbeiros.
+  - `LocationSection`: Endereço no Bairro da Luz (Rua Barão de São Félix, Nova Iguaçu - RJ), horários de funcionamento (Seg a Sáb, 09h às 19h) e link direto para rota.
+  - `Footer` & `Navbar`: Rodapé e cabeçalho com links integrados e contatos atualizados.
+
+---
+
 ## [0.2.0] - 2026-11-12
 
 ### Modelagem do Banco e Clientes Supabase
