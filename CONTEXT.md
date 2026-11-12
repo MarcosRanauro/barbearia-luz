@@ -62,12 +62,29 @@ O projeto **Barbearia Luz** é uma plataforma web moderna e responsiva voltada p
 
 ## 4. Estado Atual do Projeto
 
-- **Fase Atual:** Fase 0 — Governança e Inicialização.
-- **Status:**
-  - [x] Criação de diretrizes técnicas (`GEMINI.md`).
-  - [x] Definição de contexto e memória do projeto (`CONTEXT.md`).
-  - [x] Registro das decisões arquiteturais iniciais (`DECISOES.md`).
-  - [x] Template de variáveis de ambiente (`.env.example`).
-  - [ ] Inicialização da aplicação Next.js (App Router + TS + Tailwind).
-  - [ ] Configuração do Supabase, schema SQL, migrations e RLS.
-  - [ ] Implementação do fluxo de agendamento público e painel administrativo.
+- **Fase Atual:** Fase 1 — Setup e Infraestrutura Base.
+- **Roteiro de Etapas:**
+  - [x] **Etapa 1: Governança e Diretrizes Base** (branch `main`)
+    - Regras de conduta técnica (`GEMINI.md`).
+    - Definição de contexto e memória do projeto (`CONTEXT.md`).
+    - Registro das decisões arquiteturais iniciais (`DECISOES.md`).
+    - Template de variáveis de ambiente (`.env.example`).
+  - [x] **Etapa 2: Inicialização Next.js e Tailwind CSS** (branch `feat/setup-nextjs-tailwind`)
+    - Setup do Next.js (App Router, TypeScript estrito, Tailwind CSS).
+    - Configuração de alias (`@/*`), ESLint e scripts de build/dev.
+    - Criação do `README.md` descritivo e `CHANGELOG.md` ([0.1.0]).
+  - [ ] **Etapa 3: Modelagem do Banco e Migrations do Supabase** (branch `feat/supabase-schema`)
+    - Configuração do client Supabase (`@supabase/ssr`).
+    - Schemas SQL com RLS (barbeiros, serviços, agendamentos).
+    - Extensão `btree_gist` e constraint de exclusão temporal anti-double-booking.
+  - [ ] **Etapa 4: Fluxo de Agendamento Público**
+  - [ ] **Etapa 5: Painel do Barbeiro e Administração**
+
+---
+
+## 5. Próximo Passo Imediato
+
+> **Etapa 3 - Modelagem do Banco e Migrations do Supabase (branch feat/supabase-schema)**
+> - Criar migrações SQL no Supabase.
+> - Habilitar a extensão `btree_gist` e constraints de integridade temporal.
+> - Configurar políticas de Row Level Security (RLS) para proteger acessos de clientes e barbeiros.
