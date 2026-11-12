@@ -7,6 +7,28 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 ---
 
+## [0.3.0] - 2026-11-12
+
+### Utilitários de Formatação e Landing Page
+
+#### Adicionado
+- **Utilitários de Formatação (`src/lib/utils/formatters.ts`):**
+  - `formatPrice`: conversão de centavos para Real formatado (`R$ 35,00`).
+  - `formatDuration`: formatação de minutos para texto amigável (`30 min`, `1h 10min`).
+  - `formatPhone`: máscara padrão para telefones brasileiros (`(21) 99999-0001`).
+- **Componentes Visuais da Landing Page (`src/components/landing/`):**
+  - `HeroSection`: headline de autoridade, badges ("4.9 estrelas no Google" e "+160 avaliações reais"), CTAs para agendamento online e contato via WhatsApp.
+  - `ServicesSection`: exibição categorizada dos serviços (Cabelo, Barba, Combos, Acabamento, Química), durações, preços e links de agendamento, tipado com `database.types.ts`.
+  - `BarbersSection`: apresentação dos quatro barbeiros da equipe (Renan, Mike, Davi e Leandro) com biografias, especialidades e agendamento individual.
+  - `TattooStudioSection`: destaque do estúdio de tatuagem integrado, biossegurança descartável e orçamentos via WhatsApp.
+  - `LocationSection`: endereço no Bairro da Luz, horários de funcionamento e atalho interativo para o Google Maps.
+  - `Footer`: rodapé institucional com navegação, dados de contato e links diretos.
+  - `Navbar`: menu superior responsivo fixo com navegação por âncoras e botão de ação rápida.
+- **Página Principal (`src/app/(public)/page.tsx`):**
+  - Composição responsiva e tema escuro elegante (preto/cinza grafite com detalhes âmbar e dourados discretos).
+
+---
+
 ## [0.2.0] - 2026-11-12
 
 ### Modelagem do Banco e Clientes Supabase
