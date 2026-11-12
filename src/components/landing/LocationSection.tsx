@@ -1,52 +1,51 @@
 export function LocationSection() {
   const schedule = [
-    { days: 'Segunda a Sexta-feira', hours: '09:00 às 20:00' },
-    { days: 'Sábado', hours: '08:00 às 19:00' },
-    { days: 'Domingos e Feriados', hours: 'Fechado (ou sob consulta especial)' },
+    { days: 'Segunda a Sábado', hours: '09:00 às 19:00' },
+    { days: 'Domingos e Feriados', hours: 'Fechado (ou sob agendamento VIP)' },
   ];
 
   return (
-    <section id="localizacao" className="py-20 bg-neutral-900/50 text-white border-b border-neutral-900">
+    <section id="localizacao" className="py-20 sm:py-28 bg-neutral-950 text-white border-b border-neutral-900">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Informações de Contato e Horários */}
           <div>
-            <span className="text-amber-500 font-semibold text-xs tracking-widest uppercase">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold uppercase tracking-wider mb-3">
               Onde Estamos
-            </span>
-            <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
               Localização & Horários
             </h2>
-            <p className="mt-4 text-sm sm:text-base text-neutral-400 leading-relaxed">
-              Situada no tradicional Bairro da Luz em Nova Iguaçu, nossa barbearia oferece facilidade de acesso, estacionamento nas proximidades e um espaço acolhedor.
+            <p className="mt-4 text-sm sm:text-base text-neutral-400 font-light leading-relaxed">
+              Fácil acesso no tradicional Bairro da Luz em Nova Iguaçu, com vagas de estacionamento nas imediações e ambiente acolhedor.
             </p>
 
-            {/* Cartão de Endereço */}
-            <div className="mt-8 p-5 rounded-xl bg-neutral-900 border border-neutral-800">
-              <div className="flex items-start gap-3.5">
-                <div className="p-2.5 rounded-lg bg-neutral-950 border border-amber-500/30 text-amber-400 shrink-0">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {/* Cartão de Endereço Real */}
+            <div className="mt-8 p-6 rounded-2xl bg-neutral-900/80 border border-neutral-800">
+              <div className="flex items-start gap-4">
+                <div className="p-3 rounded-xl bg-neutral-950 border border-amber-500/30 text-amber-400 shrink-0 shadow-inner">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white">Endereço</h3>
-                  <p className="text-xs sm:text-sm text-neutral-300 mt-1">
-                    Bairro da Luz — Nova Iguaçu, RJ
+                  <h3 className="text-base font-bold text-white">Endereço Oficial</h3>
+                  <p className="text-sm font-semibold text-amber-300 mt-1">
+                    Rua Barão de São Félix — Bairro da Luz
                   </p>
-                  <p className="text-xs text-neutral-500 mt-0.5">
-                    Região central e de fácil localização com comodidades locais.
+                  <p className="text-xs text-neutral-400 mt-0.5">
+                    Nova Iguaçu — RJ, CEP de fácil localização na Baixada Fluminense.
                   </p>
-                  <div className="mt-3">
+                  <div className="mt-4">
                     <a
-                      href="https://maps.google.com/?q=Barbearia+Luz+Nova+Iguacu"
+                      href="https://maps.google.com/?q=Rua+Barao+de+Sao+Felix+Bairro+da+Luz+Nova+Iguacu"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-400 hover:text-amber-300 transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 hover:text-amber-300 transition-colors"
                     >
                       <span>Abrir no Google Maps</span>
-                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
                     </a>
@@ -56,66 +55,66 @@ export function LocationSection() {
             </div>
 
             {/* Horários de Atendimento */}
-            <div className="mt-6 p-5 rounded-xl bg-neutral-900 border border-neutral-800">
-              <h3 className="text-sm font-bold text-white mb-3 flex items-center gap-2">
+            <div className="mt-6 p-6 rounded-2xl bg-neutral-900/80 border border-neutral-800">
+              <h3 className="text-sm font-bold text-white mb-4 flex items-center gap-2">
                 <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Horário de Funcionamento
+                Horário de Atendimento
               </h3>
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 {schedule.map((item) => (
-                  <div key={item.days} className="flex justify-between items-center text-xs py-1.5 border-b border-neutral-800/60 last:border-0">
+                  <div key={item.days} className="flex justify-between items-center text-xs sm:text-sm py-1.5 border-b border-neutral-800/60 last:border-0">
                     <span className="text-neutral-400">{item.days}</span>
-                    <span className="font-semibold text-neutral-200">{item.hours}</span>
+                    <span className="font-bold text-neutral-200">{item.hours}</span>
                   </div>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Card Visual / Mapa Interativo Ilustrado */}
-          <div className="relative rounded-2xl border border-neutral-800 bg-neutral-900 p-6 shadow-xl overflow-hidden flex flex-col justify-between h-full min-h-[380px]">
-            <div className="space-y-4">
+          {/* Card Visual / Destaques de Conforto */}
+          <div className="relative rounded-2xl border border-neutral-800 bg-gradient-to-b from-neutral-900 to-neutral-950 p-8 shadow-2xl flex flex-col justify-between h-full min-h-[420px]">
+            <div className="space-y-5">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-amber-400 uppercase tracking-wider">Nova Iguaçu • RJ</span>
-                <span className="flex items-center gap-1.5 text-xs text-emerald-400 font-medium">
+                <span className="text-xs font-black text-amber-400 uppercase tracking-widest">Barbearia Luz • Nova Iguaçu</span>
+                <span className="flex items-center gap-2 text-xs text-emerald-400 font-semibold bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                  Aberto para Atendimento
+                  Atendimento Ativo
                 </span>
               </div>
 
-              <h4 className="text-xl font-bold text-white">Comodidades do Espaço</h4>
-              <ul className="space-y-2.5 text-xs text-neutral-300">
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                  Ambiente 100% climatizado com ar-condicionado de alta potência.
+              <h4 className="text-2xl font-black text-white">Padrão de Conforto & Hospitalidade</h4>
+              <ul className="space-y-3.5 text-xs sm:text-sm text-neutral-300">
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0" />
+                  <span>Ambiente 100% climatizado com renovação de ar constante.</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                  Café expresso moído na hora e chopp artesanal gelado.
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0" />
+                  <span>Café expresso moído na hora e chopp artesanal trincando.</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                  Wi-Fi de alta velocidade e tomadas para recarga de aparelhos.
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0" />
+                  <span>Wi-Fi gratuito de alta velocidade para clientes.</span>
                 </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                  Cadeiras de barbeiro ergonômicas e higienizadas a cada uso.
+                <li className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0" />
+                  <span>Cadeiras reclináveis para máximo conforto durante a barboterapia.</span>
                 </li>
               </ul>
             </div>
 
-            <div className="pt-6 border-t border-neutral-800">
+            <div className="pt-8 border-t border-neutral-800">
               <a
-                href="https://maps.google.com/?q=Barbearia+Luz+Nova+Iguacu"
+                href="https://maps.google.com/?q=Rua+Barao+de+Sao+Felix+Bairro+da+Luz+Nova+Iguacu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-lg bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold text-xs sm:text-sm transition-all duration-200 shadow-md shadow-amber-500/20"
+                className="w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-neutral-950 font-black text-sm transition-all duration-200 shadow-md shadow-amber-500/20"
               >
-                <span>Traçar Rota no Waze / Google Maps</span>
+                <span>Traçar Rota no Waze ou Google Maps</span>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </a>
             </div>

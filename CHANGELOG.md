@@ -9,23 +9,22 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 ## [0.3.0] - 2026-11-12
 
-### Utilitários de Formatação e Landing Page
+### Catálogo Enriquecido, Prova Social e Padrão Dark Luxury
 
 #### Adicionado
-- **Utilitários de Formatação (`src/lib/utils/formatters.ts`):**
-  - `formatPrice`: conversão de centavos para Real formatado (`R$ 35,00`).
-  - `formatDuration`: formatação de minutos para texto amigável (`30 min`, `1h 10min`).
-  - `formatPhone`: máscara padrão para telefones brasileiros (`(21) 99999-0001`).
-- **Componentes Visuais da Landing Page (`src/components/landing/`):**
-  - `HeroSection`: headline de autoridade, badges ("4.9 estrelas no Google" e "+160 avaliações reais"), CTAs para agendamento online e contato via WhatsApp.
-  - `ServicesSection`: exibição categorizada dos serviços (Cabelo, Barba, Combos, Acabamento, Química), durações, preços e links de agendamento, tipado com `database.types.ts`.
-  - `BarbersSection`: apresentação dos quatro barbeiros da equipe (Renan, Mike, Davi e Leandro) com biografias, especialidades e agendamento individual.
-  - `TattooStudioSection`: destaque do estúdio de tatuagem integrado, biossegurança descartável e orçamentos via WhatsApp.
-  - `LocationSection`: endereço no Bairro da Luz, horários de funcionamento e atalho interativo para o Google Maps.
-  - `Footer`: rodapé institucional com navegação, dados de contato e links diretos.
-  - `Navbar`: menu superior responsivo fixo com navegação por âncoras e botão de ação rápida.
-- **Página Principal (`src/app/(public)/page.tsx`):**
-  - Composição responsiva e tema escuro elegante (preto/cinza grafite com detalhes âmbar e dourados discretos).
+- **Base de Dados de Serviços Reais (`src/data/services.ts`):**
+  - Catálogo estático com os 17 serviços e preços reais praticados na Barbearia Luz, divididos nas categorias Cabelo (Corte Tradicional, Pezinho, Lavagem Especial), Barba (Barba Simples, Barboterapia Completa com Ozônio, Pigmentação), Combos (Corte + Barba Tradicional, Corte + Barboterapia, Combo Master com Sobrancelha), Acabamento (Sobrancelha na Navalha, Limpeza de Pele Express) e Química (Platinado/Nevou, Luzes/Mechas, Progressiva, Hidratação, Matização, Relaxamento).
+- **Prova Social e Reputação (`src/data/reviews.ts`):**
+  - Depoimentos reais do Google Avaliações (Fabricio Lucas e Jonathan Matos) com classificação 5 estrelas.
+  - Registro da presença recorrente de atletas e personalidades da Baixada Fluminense e RJ.
+- **Componentes Refinados no Padrão Dark Luxury (`src/components/landing/`):**
+  - `HeroSection`: Badges reais ("⭐ 4.9 no Google (+160 avaliações)" e "❄️ Ambiente 100% climatizado"), CTA direto para `/agendar` e canal oficial no WhatsApp ((21) 98013-4488).
+  - `ServicesSection`: Navegação fluida por abas (Cabelo, Barba, Combos, Química, Acabamento) com cards detalhados, preços em centavos formatados e botão "Agendar este".
+  - `BarbersSection`: Destaque dos 4 profissionais da barbearia (Renan, Mike, Davi e Leandro).
+  - `ReviewsSection`: Seção dedicada com depoimentos verificados e menção a clientes VIPs.
+  - `TattooAndAcademySection`: Seção visual dupla cobrindo o Estúdio de Tattoo parceiro ((21) 99228-6447) e a Academia de Formação de Barbeiros.
+  - `LocationSection`: Endereço no Bairro da Luz (Rua Barão de São Félix, Nova Iguaçu - RJ), horários de funcionamento (Seg a Sáb, 09h às 19h) e link direto para rota.
+  - `Footer` & `Navbar`: Rodapé e cabeçalho com links integrados e contatos atualizados.
 
 ---
 

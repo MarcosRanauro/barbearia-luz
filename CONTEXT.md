@@ -81,9 +81,11 @@ O projeto **Barbearia Luz** é uma plataforma web moderna e responsiva voltada p
     - Tipos TypeScript estritos em `src/types/database.types.ts`.
   - [x] **Etapa 4: Landing Page e Catálogo de Serviços** (branch `feat/landing-page`)
     - Criação de utilitários de formatação em `src/lib/utils/formatters.ts` (`formatPrice`, `formatDuration`, `formatPhone`).
-    - Componentes modulares da landing page em `src/components/landing/`: `HeroSection`, `ServicesSection`, `BarbersSection`, `TattooStudioSection`, `LocationSection`, `Footer` e `Navbar`.
-    - Montagem da página principal responsiva com tema escuro elegante em `src/app/(public)/page.tsx`.
-    - Tipagem rigorosa com `database.types.ts` e ausência de estilos inline.
+    - Catálogo tipado com os 17 serviços e preços reais da casa em `src/data/services.ts` (Cabelo, Barba, Combos, Química, Acabamento).
+    - Prova social real em `src/data/reviews.ts` com depoimentos do Google (Fabricio Lucas e Jonathan Matos) e menção a atletas do RJ.
+    - Componentes refinados no padrão Dark Luxury em `src/components/landing/`: `HeroSection`, `ServicesSection` (navegação por abas), `BarbersSection` (Renan, Mike, Davi e Leandro), `ReviewsSection`, `TattooAndAcademySection` (Tattoo (21) 99228-6447 + Academia de Barbeiros), `LocationSection` (Rua Barão de São Félix, Seg a Sáb 09h-19h), `Footer` e `Navbar`.
+    - Montagem da página principal responsiva em `src/app/(public)/page.tsx` com contatos e rota do Google Maps.
+    - Tipagem rigorosa com `database.types.ts`, zero uso de `any` e zero estilos inline.
   - [ ] **Etapa 5: Fluxo de Agendamento em 4 Etapas** (branch `feat/booking-flow`)
   - [ ] **Etapa 6: Painel do Barbeiro e Administração**
 
