@@ -73,18 +73,21 @@ O projeto **Barbearia Luz** é uma plataforma web moderna e responsiva voltada p
     - Setup do Next.js (App Router, TypeScript estrito, Tailwind CSS).
     - Configuração de alias (`@/*`), ESLint e scripts de build/dev.
     - Criação do `README.md` descritivo e `CHANGELOG.md` ([0.1.0]).
-  - [ ] **Etapa 3: Modelagem do Banco e Migrations do Supabase** (branch `feat/supabase-schema`)
-    - Configuração do client Supabase (`@supabase/ssr`).
-    - Schemas SQL com RLS (barbeiros, serviços, agendamentos).
+  - [x] **Etapa 3: Modelagem do Banco e Migrations do Supabase** (branch `feat/supabase-schema`)
+    - Configuração do client Supabase (`@supabase/ssr` e `@supabase/supabase-js`).
+    - Migração SQL com RLS rigoroso (`supabase/migrations/20261112000000_init_schema.sql`).
     - Extensão `btree_gist` e constraint de exclusão temporal anti-double-booking.
-  - [ ] **Etapa 4: Fluxo de Agendamento Público**
-  - [ ] **Etapa 5: Painel do Barbeiro e Administração**
+    - RPC segura `get_available_slots` para cálculo de disponibilidade sem vazamento de dados.
+    - Tipos TypeScript estritos em `src/types/database.types.ts`.
+  - [ ] **Etapa 4: Landing Page e Catálogo de Serviços** (branch `feat/landing-page`)
+  - [ ] **Etapa 5: Fluxo de Agendamento Público**
+  - [ ] **Etapa 6: Painel do Barbeiro e Administração**
 
 ---
 
 ## 5. Próximo Passo Imediato
 
-> **Etapa 3 - Modelagem do Banco e Migrations do Supabase (branch feat/supabase-schema)**
-> - Criar migrações SQL no Supabase.
-> - Habilitar a extensão `btree_gist` e constraints de integridade temporal.
-> - Configurar políticas de Row Level Security (RLS) para proteger acessos de clientes e barbeiros.
+> **Etapa 4 - Landing Page e Catálogo de Serviços (branch feat/landing-page)**
+> - Desenvolver a Landing Page responsiva da Barbearia Luz.
+> - Exibir catálogo dinâmico de serviços com durações e preços a partir do Supabase.
+> - Botões de chamada para ação (CTA) para o fluxo de agendamento online.
