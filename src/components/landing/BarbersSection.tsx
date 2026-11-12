@@ -27,15 +27,10 @@ export function BarbersSection() {
             >
               <div>
                 {/* Avatar / Monograma com aro dourado */}
-                <div className="relative flex items-center justify-center mx-auto w-24 h-24 rounded-full bg-neutral-950 border-2 border-amber-500/40 group-hover:border-amber-500 shadow-inner mb-5 transition-colors">
+                <div className="flex items-center justify-center mx-auto w-24 h-24 rounded-full bg-neutral-950 border-2 border-amber-500/40 group-hover:border-amber-500 shadow-inner mb-5 transition-colors">
                   <span className="text-2xl font-black text-amber-400 tracking-wider">
                     {barber.initials}
                   </span>
-                  {barber.isOwner && (
-                    <span className="absolute -bottom-2 px-2 py-0.5 rounded-full bg-amber-500 text-neutral-950 text-[10px] font-black uppercase tracking-wider shadow">
-                      Admin
-                    </span>
-                  )}
                 </div>
 
                 <div className="text-center mb-3">

@@ -196,9 +196,6 @@ export function StepClientInfo({
               <span className="text-white font-bold flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-amber-400" />
                 {barber?.nickname ?? 'Barbeiro da Casa'}
-                {barber?.isOwner && (
-                  <span className="text-[10px] text-amber-400 font-normal">(Admin)</span>
-                )}
               </span>
             </div>
 

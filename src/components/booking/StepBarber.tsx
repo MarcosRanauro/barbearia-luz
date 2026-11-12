@@ -40,15 +40,10 @@ export function StepBarber({ selectedBarberId, onSelectBarber, onNext }: StepBar
               }`}
             >
               {/* Monograma do Barbeiro */}
-              <div className="relative shrink-0 flex items-center justify-center w-14 h-14 rounded-full bg-neutral-950 border border-amber-500/30">
+              <div className="shrink-0 flex items-center justify-center w-14 h-14 rounded-full bg-neutral-950 border border-amber-500/30">
                 <span className="text-lg font-black text-amber-400 tracking-wider">
                   {barber.initials}
                 </span>
-                {barber.isOwner && (
-                  <span className="absolute -top-1 -right-1 px-1.5 py-0.2 rounded-full bg-amber-500 text-neutral-950 text-[9px] font-black uppercase tracking-wider">
-                    Admin
-                  </span>
-                )}
               </div>
 
               <div className="flex-1 min-w-0">

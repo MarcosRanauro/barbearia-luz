@@ -45,15 +45,15 @@ export function ServicesSection({ services = SERVICES_CATALOG }: ServicesSection
                   key={tab}
                   type="button"
                   onClick={() => setActiveTab(tab)}
-                  className={`flex-1 min-w-[90px] py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                  className={`flex items-center justify-center gap-2 flex-1 min-w-[95px] py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer overflow-hidden ${
                     isSelected
                       ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-neutral-950 shadow-md shadow-amber-500/25 font-bold'
                       : 'text-neutral-400 hover:text-white hover:bg-neutral-800/60'
                   }`}
                 >
-                  <span>{tab}</span>
+                  <span className="truncate">{tab}</span>
                   <span
-                    className={`ml-1.5 text-[10px] px-1.5 py-0.2 rounded-full ${
+                    className={`inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 rounded-full text-xs font-semibold leading-none shrink-0 ${
                       isSelected ? 'bg-neutral-950/20 text-neutral-950 font-extrabold' : 'bg-neutral-800 text-neutral-400'
                     }`}
                   >

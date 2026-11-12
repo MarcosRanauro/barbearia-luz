@@ -44,20 +44,37 @@ export function StepServices({
 
         {/* Filtro de Categorias */}
         <div className="mt-6 flex flex-wrap items-center justify-center gap-1.5 p-1 rounded-xl bg-neutral-900 border border-neutral-800">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              type="button"
-              onClick={() => setActiveCategory(cat)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                activeCategory === cat
-                  ? 'bg-amber-500 text-neutral-950 font-bold shadow'
-                  : 'text-neutral-400 hover:text-white hover:bg-neutral-800'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+          {categories.map((cat) => {
+            const isSelected = activeCategory === cat;
+            const count =
+              cat === 'Todos'
+                ? SERVICES_CATALOG.filter((s) => s.is_active).length
+                : SERVICES_CATALOG.filter((s) => s.category === cat && s.is_active).length;
+
+            return (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setActiveCategory(cat)}
+                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  isSelected
+                    ? 'bg-amber-500 text-neutral-950 font-bold shadow'
+                    : 'text-neutral-400 hover:text-white hover:bg-neutral-800'
+                }`}
+              >
+                <span>{cat}</span>
+                <span
+                  className={`inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 rounded-full text-xs font-semibold leading-none shrink-0 ${
+                    isSelected
+                      ? 'bg-neutral-950/20 text-neutral-950 font-extrabold'
+                      : 'bg-neutral-800 text-neutral-400'
+                  }`}
+                >
+                  {count}
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
 

@@ -24,7 +24,7 @@ export const BARBERS: Barber[] = [
     role: 'admin', // Proprietário com privilégios totais de admin
     isOwner: true,
     specialties: ['Tesoura Clássica', 'Penteados Tradicionais', 'Corte Infantil'],
-    bio: 'Proprietário e mestre barbeiro. Referência na técnica clássica na tesoura e gestão, garantindo excelência e hospitalidade máxima na casa.',
+    bio: 'Mestre barbeiro especialista na técnica clássica na tesoura e acabamento de alta precisão, garantindo excelência e hospitalidade máxima na casa.',
     initials: 'LS',
     phone: '21980134488',
     email: 'leandro@barbearialuz.com.br',
