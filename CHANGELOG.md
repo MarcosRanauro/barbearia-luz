@@ -7,7 +7,28 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR
 
 ---
 
-## [0.3.0] - 2026-11-12
+## [0.4.0] - 2026-11-12
+
+### Fluxo de Agendamento em 4 Etapas e Trava Anti-Concorrência
+
+#### Adicionado
+- **Regra de Negócios e Profissionais (`src/data/barbers.ts`):**
+  - Registro central dos 4 profissionais (Renan, Mike, Davi e Leandro), reconhecendo formalmente o barbeiro Leandro como proprietário da barbearia (`role: 'admin'`).
+- **Validação e Server Action (`src/lib/actions/booking.ts`):**
+  - Schema de validação Zod `bookingSchema` com normalização de telefone padrão BR (DDD + número).
+  - Server Action `createAppointment`: upsert de cliente pelo telefone único, cálculo da duração total acumulada (`endAt`), inserção em `appointments` e `appointment_services`.
+  - Captura e tratamento amigável de conflito da constraint `no_overlapping_appointments` (`btree_gist` code `23P01`).
+  - Função `fetchAvailableSlots` integrada com a RPC `get_available_slots` do Supabase e grade de horário comercial (09h-19h).
+- **Componentes do Fluxo de Reserva (`src/components/booking/`):**
+  - `BookingStepper`: Barra de progresso visual nos 4 passos (Profissional -> Serviços -> Data e Hora -> Identificação) 100% com Tailwind CSS puro.
+  - `StepBarber`: Seleção visual dos 4 barbeiros com indicação de Admin para Leandro.
+  - `StepServices`: Seleção múltipla com checkbox customizado, filtros por categoria e barra fixa inferior com soma de duração e preço.
+  - `StepDateTime`: Seletor de dia útil (Seg a Sáb) e grid de slots das 09h às 19h (passos de 30 min) com bloqueio de horários ocupados.
+  - `StepClientInfo`: Formulário com máscara dinâmica de WhatsApp e resumo lateral de atendimento.
+  - `BookingConfirmation`: Tela de sucesso com resumo completo, número de reserva e link direto para confirmação no WhatsApp oficial ((21) 98013-4488).
+  - `BookingFlow`: Orquestrador com suporte a pré-seleção via query parameters (`?barbeiro=` e `?servico=`).
+- **Rota Pública `/agendar` (`src/app/(public)/agendar/page.tsx`):**
+  - Página dedicada com Suspense boundary e tema Dark Luxury coeso.
 
 ### Catálogo Enriquecido, Prova Social e Padrão Dark Luxury
 

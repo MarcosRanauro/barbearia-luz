@@ -86,14 +86,20 @@ O projeto **Barbearia Luz** é uma plataforma web moderna e responsiva voltada p
     - Componentes refinados no padrão Dark Luxury em `src/components/landing/`: `HeroSection`, `ServicesSection` (navegação por abas), `BarbersSection` (Renan, Mike, Davi e Leandro), `ReviewsSection`, `TattooAndAcademySection` (Tattoo (21) 99228-6447 + Academia de Barbeiros), `LocationSection` (Rua Barão de São Félix, Seg a Sáb 09h-19h), `Footer` e `Navbar`.
     - Montagem da página principal responsiva em `src/app/(public)/page.tsx` com contatos e rota do Google Maps.
     - Tipagem rigorosa com `database.types.ts`, zero uso de `any` e zero estilos inline.
-  - [ ] **Etapa 5: Fluxo de Agendamento em 4 Etapas** (branch `feat/booking-flow`)
-  - [ ] **Etapa 6: Painel do Barbeiro e Administração**
+  - [x] **Etapa 5: Fluxo de Agendamento em 4 Etapas** (branch `feat/booking-flow`)
+    - Criação de catálogo unificado dos profissionais em `src/data/barbers.ts` reconhecendo o barbeiro Leandro como proprietário (`role = 'admin'`).
+    - Validação de entrada com Zod (`bookingSchema`) e normalização rigorosa de telefone celular/fixo nacional.
+    - Server Action `createAppointment` em `src/lib/actions/booking.ts` com upsert atômico de clientes pelo telefone único e trava anti-conflito baseada na constraint `no_overlapping_appointments` (`btree_gist`).
+    - Consulta de slots em tempo real via RPC `get_available_slots` com fallback inteligente para expediente comercial (09h-19h).
+    - Componentes modulares em `src/components/booking/`: `BookingStepper`, `StepBarber`, `StepServices` (seleção múltipla e resumo fixo), `StepDateTime`, `StepClientInfo` (com máscara automática) e `BookingConfirmation` (resumo completo e botão de confirmação via WhatsApp).
+    - Rota `/agendar` com suporte a pré-seleção via query params (`barbeiro` e `servico`).
+  - [ ] **Etapa 6: Autenticação da Equipe e Painel do Barbeiro / Painel Master do Leandro** (branch `feat/dashboard`)
 
 ---
 
 ## 5. Próximo Passo Imediato
 
-> **Etapa 5 - Fluxo de Agendamento em 4 Etapas (branch feat/booking-flow)**
-> - Construir fluxo de reserva multi-etapas interativo (Seleção de Serviços -> Barbeiro -> Data/Horário -> Dados do Cliente).
-> - Integrar RPC `get_available_slots` para consulta de horários disponíveis em tempo real.
-> - Transação atômica de criação de agendamento com tratamento do erro da constraint anti-double booking.
+> **Etapa 6 - Autenticação da Equipe e Painel do Barbeiro / Painel Master do Leandro (branch feat/dashboard)**
+> - Configuração do fluxo de login e sessão Supabase Auth para a equipe de barbeiros.
+> - Painel pessoal para barbeiros acompanharem e gerenciarem seus agendamentos diários e semanais.
+> - Painel administrativo Master do Leandro para visão geral da barbearia, métricas de faturamento e gestão de bloqueios de agenda.
